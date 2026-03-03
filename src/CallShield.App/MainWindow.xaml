@@ -1,0 +1,74 @@
+<Window x:Class="CallShield.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Call Shield" Height="640" Width="900" MinHeight="640" MinWidth="860">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Call Shield" FontSize="30" FontWeight="Bold" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,18,0,0" VerticalAlignment="Center">
+            <ToggleButton x:Name="ShieldToggle" Width="180" Height="56" FontSize="22" Content="Shield OFF" Checked="ShieldToggle_On" Unchecked="ShieldToggle_Off"/>
+            <TextBlock x:Name="StatusLabel" Margin="14,0,0,0" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold" Text="WebRTC permitido" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0,18,0,0">
+            <TextBlock Text="Modo de bloqueo" FontSize="16" FontWeight="SemiBold" />
+            <ComboBox x:Name="ModeSelector" Width="260" Margin="0,8,0,0" SelectedIndex="0">
+                <ComboBoxItem Content="Ligero (UDP por proceso)" />
+                <ComboBoxItem Content="Estricto (UDP + TURN TCP típico)" />
+                <ComboBoxItem Content="Total (bloqueo completo por proceso)" />
+            </ComboBox>
+        </StackPanel>
+
+        <GroupBox Grid.Row="3" Header="Apps objetivo" Margin="0,18,0,0" Padding="12">
+            <StackPanel>
+                <CheckBox x:Name="ChromeCheck" Content="Chrome (chrome.exe)" IsChecked="True" Margin="0,2" />
+                <CheckBox x:Name="EdgeCheck" Content="Edge (msedge.exe)" IsChecked="True" Margin="0,2" />
+                <CheckBox x:Name="FirefoxCheck" Content="Firefox (firefox.exe)" IsChecked="False" Margin="0,2" />
+            </StackPanel>
+        </GroupBox>
+
+        <Grid Grid.Row="4" Margin="0,18,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <GroupBox Header="Programación horaria" Padding="12" Margin="0,0,10,0">
+                <StackPanel>
+                    <CheckBox x:Name="ScheduleEnabled" Content="Activar automáticamente por horario" IsChecked="True" />
+                    <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                        <TextBlock Text="Inicio" VerticalAlignment="Center" />
+                        <TextBox x:Name="StartTimeText" Width="70" Margin="8,0,0,0" Text="22:00" />
+                        <TextBlock Text="Fin" VerticalAlignment="Center" Margin="14,0,0,0" />
+                        <TextBox x:Name="EndTimeText" Width="70" Margin="8,0,0,0" Text="08:00" />
+                    </StackPanel>
+                    <TextBlock Text="Formato HH:mm. Si cruza medianoche, se aplica correctamente." Margin="0,8,0,0" Foreground="Gray" TextWrapping="Wrap" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Diagnóstico" Grid.Column="1" Padding="12" Margin="10,0,0,0">
+                <StackPanel>
+                    <TextBlock x:Name="RuleSummary" Text="Sin reglas activas." TextWrapping="Wrap"/>
+                    <TextBlock x:Name="LogPathText" Margin="0,6,0,0" TextWrapping="Wrap" />
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,14,0,0">
+            <Button Content="Aplicar ahora" Width="120" Margin="0,0,8,0" Click="ApplyNow_OnClick" />
+            <Button Content="Restaurar / Reset" Width="150" Click="Reset_OnClick" />
+        </StackPanel>
+    </Grid>
+</Window>
